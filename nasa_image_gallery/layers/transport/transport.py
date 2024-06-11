@@ -22,3 +22,4 @@ def getAllImages(input=None):
             pass
 
     return json_collection
+
