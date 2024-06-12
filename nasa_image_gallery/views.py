@@ -1,7 +1,6 @@
 # capa de vista/presentación
 # si se necesita algún dato (lista, valor, etc), esta capa SIEMPRE se comunica con services_nasa_image_gallery.py
-from nasa_image_gallery.layers.generic.mapper import *
-from nasa_image_gallery.layers.transport.transport import *
+
 from django.shortcuts import redirect, render
 from .layers.services import services_nasa_image_gallery
 from django.contrib.auth.decorators import login_required
