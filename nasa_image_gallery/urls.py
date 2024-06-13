@@ -1,5 +1,5 @@
-from django.contrib import admin
-from django.urls import path
+from django.contrib import admin # type: ignore # type: ignore
+from django.urls import path # type: ignore
 from . import views
 
 urlpatterns = [
