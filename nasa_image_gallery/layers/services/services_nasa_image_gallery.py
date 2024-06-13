@@ -18,7 +18,7 @@ def getAllImages(input=None):
     images = []
     
     for json in json_collection: #Recorro la lista json_collection
-        nasacar=mapper.fromRepositoryIntoNASACard(json)
+        nasacar=mapper.fromRequestIntoNASACard(json)
         images.append(nasacar)
     return images
 
