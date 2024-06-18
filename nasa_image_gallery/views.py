@@ -49,6 +49,7 @@ def search(request):
 @login_required
 def getAllFavouritesByUser(request):
     favourite_list = []
+    favourite_list=services_nasa_image_gallery.getAllFavouritesByUser(request)
     return render(request, 'favourites.html', {'favourite_list': favourite_list})
 
 
