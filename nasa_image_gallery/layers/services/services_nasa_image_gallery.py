@@ -18,8 +18,8 @@ def getAllImages(input=None):
     images = []
     
     for objetos in json_collection: #Recorro la lista json_collection.
-        nasacar=mapper.fromRequestIntoNASACard(objetos)
-        images.append(nasacar) #Agrega los objetos (pasados a nasacard) a la lista imagenes.
+        nasa_card=mapper.fromRequestIntoNASACard(objetos)
+        images.append(nasa_card) #Agrega los objetos (pasados a nasacard) a la lista imagenes.
     return images
 
 
@@ -29,7 +29,7 @@ def getImagesBySearchInputLike(input):
 
 # añadir favoritos (usado desde el template 'home.html')
 def saveFavourite(request):
-    fav = '' # transformamos un request del template en una NASACard.
+    fav = 'agregar-favorito' # transformamos un request del template en una NASACard.
     fav.user = '' # le seteamos el usuario correspondiente.
 
     return repositories.saveFavourite(fav) # lo guardamos en la base.
@@ -40,13 +40,15 @@ def getAllFavouritesByUser(request):
     if not request.user.is_authenticated:
         return []
     else:
+        
         user = get_user(request)
 
         favourite_list = [] # buscamos desde el repositorio TODOS los favoritos del usuario (variable 'user').
+        favourite_list=repositories.getAllFavouritesByUser(user)
         mapped_favourites = []
 
         for favourite in favourite_list:
-            nasa_card = '' # transformamos cada favorito en una NASACard, y lo almacenamos en nasa_card.
+            nasa_card = mapper.fromRequestIntoNASACard(favourite) # transformamos cada favorito en una NASACard, y lo almacenamos en nasa_card.
             mapped_favourites.append(nasa_card)
 
         return mapped_favourites

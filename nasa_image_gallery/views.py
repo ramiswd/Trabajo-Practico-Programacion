@@ -16,6 +16,7 @@ def getAllImagesAndFavouriteList(request):
     images = []
     images=services_nasa_image_gallery.getAllImages()
     favourite_list = []
+    favourite_list=services_nasa_image_gallery.getAllFavouritesByUser(request)
 
     return images, favourite_list
 
