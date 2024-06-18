@@ -20,7 +20,7 @@ def getAllImagesAndFavouriteList(request):
     return images, favourite_list
 
 # función principal de la galería.
-@login_required
+
 def home(request):
     # llama a la función auxiliar getAllImagesAndFavouriteList() y obtiene 2 listados: uno de las imágenes de la API y otro de favoritos por usuario*.
     # (*) este último, solo si se desarrolló el opcional de favoritos; caso contrario, será un listado vacío [].
