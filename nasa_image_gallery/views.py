@@ -1,7 +1,7 @@
 # capa de vista/presentación
 # si se necesita algún dato (lista, valor, etc), esta capa SIEMPRE se comunica con services_nasa_image_gallery.py
 
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render 
 from .layers.services import services_nasa_image_gallery
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth import logout 
@@ -54,12 +54,23 @@ def getAllFavouritesByUser(request):
 
 @login_required
 def saveFavourite(request):
-    pass
+    #Guarda el nuevo favorito en la lista
+    services_nasa_image_gallery.saveFavourite(request)
+    #Obtener la lista de favoritos actuales del usuario
+    images,favourite_list=getAllImagesAndFavouriteList(request)
+    #Renderiza la pagina home
+    return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list} )
+    
 
 
 @login_required
 def deleteFavourite(request):
-    pass
+    #Eliminar el favorito de la lista
+    services_nasa_image_gallery.deleteFavourite(request)
+    #Obtener la lista de favoritos actualizada del ususario
+    favourite_list=services_nasa_image_gallery.getAllFavouritesByUser(request)
+    return render(request, 'favourites.html', {'favourite_list': favourite_list})
+    
 
 
 @login_required

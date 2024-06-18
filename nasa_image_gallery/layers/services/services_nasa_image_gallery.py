@@ -48,7 +48,7 @@ def getAllFavouritesByUser(request):
         mapped_favourites = []
 
         for favourite in favourite_list:
-            nasa_card = mapper.fromRequestIntoNASACard(favourite) # transformamos cada favorito en una NASACard, y lo almacenamos en nasa_card.
+            nasa_card = mapper.fromTemplateIntoNASACard(favourite) # transformamos cada favorito en una NASACard, y lo almacenamos en nasa_card.
             mapped_favourites.append(nasa_card)
 
         return mapped_favourites
