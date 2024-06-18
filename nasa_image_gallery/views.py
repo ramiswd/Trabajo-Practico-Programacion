@@ -14,9 +14,9 @@ def index_page(request):
 # auxiliar: retorna 2 listados -> uno de las imágenes de la API y otro de los favoritos del usuario.
 def getAllImagesAndFavouriteList(request):
     images = []
-    images=services_nasa_image_gallery.getAllImages()
+    images=services_nasa_image_gallery.getAllImages() #lista de toda las imagenes de la API
     favourite_list = []
-    favourite_list=services_nasa_image_gallery.getAllFavouritesByUser(request)
+    favourite_list=services_nasa_image_gallery.getAllFavouritesByUser(request) #listado de los fav del usuario
 
     return images, favourite_list
 
@@ -26,7 +26,7 @@ def home(request):
     # llama a la función auxiliar getAllImagesAndFavouriteList() y obtiene 2 listados: uno de las imágenes de la API y otro de favoritos por usuario*.
     # (*) este último, solo si se desarrolló el opcional de favoritos; caso contrario, será un listado vacío [].
     favourite_list = []
-    images,favourite_list=getAllImagesAndFavouriteList(request)
+    images,favourite_list=getAllImagesAndFavouriteList(request) #retorno de las dos listas de la funcion anterior
     return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list} )
 
 
@@ -37,10 +37,10 @@ def search(request):
     images=[]
     favourite_list=[]
     search_msg = request.POST.get('query', '')
-    if not search_msg:
-        images=services_nasa_image_gallery.getAllImages("space")
+    if not search_msg: #Si no pone nada en el buscador
+        images=services_nasa_image_gallery.getAllImages("space") #busca "space" por default
     else:
-        images=services_nasa_image_gallery.getAllImages(search_msg)
+        images=services_nasa_image_gallery.getAllImages(search_msg) #busca lo que introdujo en search_msg
     
     
     return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list} )
@@ -49,7 +49,7 @@ def search(request):
 @login_required
 def getAllFavouritesByUser(request):
     favourite_list = []
-    favourite_list=services_nasa_image_gallery.getAllFavouritesByUser(request)
+    favourite_list=services_nasa_image_gallery.getAllFavouritesByUser(request) #lista de los favoritos del user
     return render(request, 'favourites.html', {'favourite_list': favourite_list})
 
 

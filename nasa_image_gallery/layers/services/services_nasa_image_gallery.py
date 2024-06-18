@@ -37,8 +37,8 @@ def saveFavourite(request):
 
 # usados en el template 'favourites.html'
 def getAllFavouritesByUser(request):
-    if not request.user.is_authenticated:
-        return []
+    if not request.user.is_authenticated: #si no loguea
+        return [] #no devuelve favoritos (debido a que no tiene cuenta)
     else:
         
         user = get_user(request)
