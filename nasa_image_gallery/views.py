@@ -5,6 +5,11 @@ from django.shortcuts import redirect, render
 from .layers.services import services_nasa_image_gallery
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth import logout 
+from django.contrib import messages
+from django.core.mail import send_mail
+from main import settings
+from main.forms import SubscribeForm
+
 
 
 # función que invoca al template del índice de la aplicación.
@@ -73,7 +78,21 @@ def deleteFavourite(request):
     return render(request, 'favourites.html', {'favourite_list': favourite_list})
     
 
-
 @login_required
 def exit(request):
     pass
+
+def registro(request):
+    form = SubscribeForm()
+    if request.method == 'POST':
+        form = SubscribeForm(request.POST)
+        print(form)
+        if form.is_valid():
+            subject = 'Code Band'
+            message = 'Sending Email through Gmail'
+            recipient = form.cleaned_data.get('email')
+            send_mail(subject, 
+              message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+            messages.success(request, 'Success!')
+            return redirect('registro')
+    return render(request, 'registro.html', {'form': form})

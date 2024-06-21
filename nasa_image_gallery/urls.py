@@ -1,5 +1,5 @@
-from django.contrib import admin # type: ignore # type: ignore
-from django.urls import path # type: ignore
+from django.contrib import admin 
+from django.urls import path 
 from . import views
 
 urlpatterns = [
@@ -7,6 +7,7 @@ urlpatterns = [
     path('login/', views.index_page, name='login'),
     path('home/', views.home, name='home'),
     path('buscar/', views.search, name='buscar'),
+    path('registro/', views.registro, name='registro'),
     
 
     path('favourites/', views.getAllFavouritesByUser, name='favoritos'),
