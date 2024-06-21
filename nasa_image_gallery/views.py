@@ -8,7 +8,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.core.mail import send_mail
 from main import settings
-from main.forms import SubscribeForm
+from main.forms import CustomUserCreationForm
 
 
 
@@ -83,13 +83,13 @@ def exit(request):
     pass
 
 def registro(request):
-    form = SubscribeForm()
+    form = CustomUserCreationForm()
     if request.method == 'POST':
-        form = SubscribeForm(request.POST)
-        print(form)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            subject = 'Code Band'
-            message = 'Sending Email through Gmail'
+            form.save()
+            subject = 'Registro completado.'
+            message = 'Bienvenido ' + form.cleaned_data.get('first_name') + ',\nEste es tu usuario y contraseña: ' + form.cleaned_data.get('username') + ' ' + form.cleaned_data.get('password1')
             recipient = form.cleaned_data.get('email')
             send_mail(subject, 
               message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
