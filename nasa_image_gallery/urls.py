@@ -6,8 +6,8 @@ urlpatterns = [
     path('', views.index_page, name='index-page'),
     path('login/', views.index_page, name='login'),
     path('home/', views.home, name='home'),
-    path('buscar/', views.search, name='buscar'),
-    path('registro/', views.registro, name='registro'),
+    path('buscar/', views.search, name='buscar'), 
+    path('registro/', views.registro, name='registro'), #url faltante para el registro.
     
 
     path('favourites/', views.getAllFavouritesByUser, name='favoritos'),

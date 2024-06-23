@@ -4,7 +4,6 @@
 from django.shortcuts import redirect, render 
 from .layers.services import services_nasa_image_gallery
 from django.contrib.auth.decorators import login_required 
-from django.contrib.auth import logout 
 from django.contrib import messages
 from django.core.mail import send_mail
 from main import settings
@@ -29,7 +28,6 @@ def getAllImagesAndFavouriteList(request):
 
 def home(request):
     # llama a la función auxiliar getAllImagesAndFavouriteList() y obtiene 2 listados: uno de las imágenes de la API y otro de favoritos por usuario*.
-    # (*) este último, solo si se desarrolló el opcional de favoritos; caso contrario, será un listado vacío [].
     
     images,favourite_list=getAllImagesAndFavouriteList(request) #retorno de las dos listas de la funcion anterior
     return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list} )
@@ -37,11 +35,9 @@ def home(request):
 
 # función utilizada en el buscador.
 def search(request):
-    # si el usuario no ingresó texto alguno, debe refrescar la página; caso contrario, debe filtrar aquellas imágenes que posean el texto de búsqueda.
-    
     images=[]
     favourite_list=[]
-    search_msg = request.POST.get('query', '')
+    search_msg = request.POST.get('query', '') #Obtengo la informacion de lo que el usuario escribe.
     if not search_msg: #Si no pone nada en el buscador
         images=services_nasa_image_gallery.getAllImages("space") #busca "space" por default
     else:

@@ -7,21 +7,19 @@ from django.contrib.auth import get_user # type: ignore
 
 def getAllImages(input=None):
     # obtiene un listado de imágenes desde transport.py y lo guarda en un json_collection.
-    # ¡OJO! el parámetro 'input' indica si se debe buscar por un valor introducido en el buscador.
+    # el parámetro 'input' indica si se debe buscar por un valor introducido en el buscador.
     json_collection = []
 
     #Obtiene un listado de imagenes desde transport.py
     json_collection=transport.getAllImages(input)
 
-
-    # recorre el listado de objetos JSON, lo transforma en una NASACard y lo agrega en el listado de images. Ayuda: ver mapper.py.
+    # recorre el listado de objetos JSON, lo transforma en una NASACard y lo agrega en el listado de images.
     images = []
     
     for objetos in json_collection: #Recorro la lista json_collection.
         nasa_card=mapper.fromRequestIntoNASACard(objetos)
         images.append(nasa_card) #Agrega los objetos (pasados a nasacard) a la lista imagenes.
     return images
-
 
 def getImagesBySearchInputLike(input):
     return getAllImages(input)
@@ -30,7 +28,7 @@ def getImagesBySearchInputLike(input):
 # añadir favoritos (usado desde el template 'home.html')
 def saveFavourite(request):
     fav = mapper.fromTemplateIntoNASACard(request) # transformamos un request del template en una NASACard.
-    fav.user = get_user(request) # le seteamos el usuario correspondiente.
+    fav.user = get_user(request) # le asignamos el usuario correspondiente.
 
     return repositories.saveFavourite(fav) # lo guardamos en la base.
 
