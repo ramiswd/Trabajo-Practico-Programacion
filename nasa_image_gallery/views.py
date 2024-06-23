@@ -30,7 +30,7 @@ def getAllImagesAndFavouriteList(request):
 def home(request):
     # llama a la función auxiliar getAllImagesAndFavouriteList() y obtiene 2 listados: uno de las imágenes de la API y otro de favoritos por usuario*.
     # (*) este último, solo si se desarrolló el opcional de favoritos; caso contrario, será un listado vacío [].
-    favourite_list = []
+    
     images,favourite_list=getAllImagesAndFavouriteList(request) #retorno de las dos listas de la funcion anterior
     return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list} )
 
@@ -91,8 +91,7 @@ def registro(request):
             subject = 'Registro completado.'
             message = 'Bienvenido ' + form.cleaned_data.get('first_name') + ',\nEste es tu usuario y contraseña: ' + form.cleaned_data.get('username') + ' ' + form.cleaned_data.get('password1')
             recipient = form.cleaned_data.get('email')
-            send_mail(subject, 
-              message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+            send_mail(subject,message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
             messages.success(request, 'Success!')
             return redirect('registro')
     return render(request, 'registro.html', {'form': form})
